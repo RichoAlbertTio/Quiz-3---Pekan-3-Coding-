@@ -4,9 +4,10 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/gin-gonic/gin"
 	"quiz-13/internal/database"
 	"quiz-13/internal/models"
+
+	"github.com/gin-gonic/gin"
 )
 
 var books = []models.Book{}

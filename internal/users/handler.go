@@ -3,9 +3,10 @@ package users
 import (
 	"net/http"
 
-	"github.com/gin-gonic/gin"
 	"quiz-13/internal/auth"
 	"quiz-13/internal/database"
+
+	"github.com/gin-gonic/gin"
 )
 
 type LoginInput struct {

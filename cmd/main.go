@@ -1,15 +1,25 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
+	"log"
+	"os"
+
 	"quiz-13/internal/auth"
 	"quiz-13/internal/books"
 	"quiz-13/internal/categories"
 	"quiz-13/internal/database"
 	"quiz-13/internal/users"
+
+	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	// Load environment variables dari file .env
+	if err := godotenv.Load(); err != nil {
+		log.Println("Warning: .env file not found, using system environment variables")
+	}
+
 	// Inisialisasi database
 	database.ConnectDB()
 
@@ -34,5 +44,11 @@ func main() {
 		book.POST("/", books.CreateBook)
 	}
 
-	r.Run(":8080")
+	// Dapatkan port dari environment variable
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	
+	r.Run(":" + port)
 }

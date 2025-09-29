@@ -2,6 +2,7 @@ package auth
 
 import (
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -9,7 +10,13 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-var jwtKey = []byte("SECRET_KEY") // ubah ke env var di production
+func getJWTKey() []byte {
+	key := os.Getenv("JWT_SECRET_KEY")
+	if key == "" {
+		key = "default-secret-key" // fallback key
+	}
+	return []byte(key)
+}
 
 type Claims struct {
 	Username string `json:"username"`
@@ -25,7 +32,7 @@ func GenerateToken(username string) (string, error) {
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString(jwtKey)
+	return token.SignedString(getJWTKey())
 }
 
 func JWTMiddleware() gin.HandlerFunc {
@@ -49,7 +56,7 @@ func JWTMiddleware() gin.HandlerFunc {
 
 		claims := &Claims{}
 		tkn, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
-			return jwtKey, nil
+			return getJWTKey(), nil
 		})
 
 		if err != nil || !tkn.Valid {

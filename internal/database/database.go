@@ -12,7 +12,36 @@ import (
 var DB *sql.DB
 
 func ConnectDB() {
-	dsn := os.Getenv("DATABASE_URL") // contoh: postgres://user:password@localhost:5432/golang_book?sslmode=disable
+	// Baca konfigurasi database dari environment variables
+	dbHost := os.Getenv("DB_HOST")
+	if dbHost == "" {
+		dbHost = "localhost"
+	}
+	
+	dbPort := os.Getenv("DB_PORT")
+	if dbPort == "" {
+		dbPort = "5432"
+	}
+	
+	dbUser := os.Getenv("DB_USER")
+	if dbUser == "" {
+		dbUser = "postgres"
+	}
+	
+	dbPassword := os.Getenv("DB_PASSWORD")
+	if dbPassword == "" {
+		dbPassword = "password"
+	}
+	
+	dbName := os.Getenv("DB_NAME")
+	if dbName == "" {
+		dbName = "db_quiz13"
+	}
+
+	// Format DSN untuk PostgreSQL
+	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+		dbHost, dbPort, dbUser, dbPassword, dbName)
+
 	var err error
 	DB, err = sql.Open("postgres", dsn)
 	if err != nil {
