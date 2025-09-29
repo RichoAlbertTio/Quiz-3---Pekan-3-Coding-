@@ -30,7 +30,7 @@ func ConnectDB() {
 	
 	dbPassword := os.Getenv("DB_PASSWORD")
 	if dbPassword == "" {
-		dbPassword = "password"
+		dbPassword = "richo123"
 	}
 	
 	dbName := os.Getenv("DB_NAME")

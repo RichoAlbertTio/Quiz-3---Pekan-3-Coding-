@@ -10,6 +10,7 @@ import (
 	"quiz-13/internal/database"
 	"quiz-13/internal/users"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
@@ -24,6 +25,15 @@ func main() {
 	database.ConnectDB()
 
 	r := gin.Default()
+	
+	// Tambahkan CORS middleware
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"*"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"*"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+	}))
 
 	// Users
 	r.POST("/api/users/login", users.Login)
