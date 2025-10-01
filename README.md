@@ -106,3 +106,5 @@ curl -X POST http://localhost:8090/api/books/ \
 - `DB_NAME` - Database name (default: db_quiz13)
 - `JWT_SECRET_KEY` - JWT secret key
 - `PORT` - Server port (default: 8080)
+
+<!-- testing -->
