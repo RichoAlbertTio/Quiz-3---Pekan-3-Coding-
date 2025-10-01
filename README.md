@@ -97,7 +97,7 @@ curl -X POST http://localhost:8090/api/books/ \
   }'
 ```
 
-## Environment Variables
+## Environment Variables Local
 
 - `DB_HOST` - Database host (default: localhost)
 - `DB_PORT` - Database port (default: 5432)
@@ -106,5 +106,14 @@ curl -X POST http://localhost:8090/api/books/ \
 - `DB_NAME` - Database name (default: db_quiz13)
 - `JWT_SECRET_KEY` - JWT secret key
 - `PORT` - Server port (default: 8080)
+
+## Environment Variables Railway
+DATABASE_URL=
+PGDATABASE=
+PHGHOST=
+PGPORT=
+PGUSER=
+PGPASSWORD=
+JWT_SECRET_KEY=
 
 <!-- testing -->
